@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 
 	"github.com/wendysanarwanto/go-grpc-course/greet/greetpb"
@@ -22,4 +23,23 @@ func main() {
 	client := greetpb.NewGreetServiceClient(connection)
 	log.Printf("[INFO] Created client: %f", client)
 
+	// Invoke Greet function
+	doUnaryRequest(client)
+}
+
+func doUnaryRequest(client greetpb.GreetServiceClient) {
+	log.Println("Starting to do a Unary RPC...")
+	// Invoke Greet function
+	req := &greetpb.GreetRequest{
+		Greeting: &greetpb.Greeting{
+			FirstName: "Ada",
+			LastName: "Wong",
+		},
+	}
+	res, err := client.Greet(context.Background(), req )
+	if err != nil {
+		log.Fatalf("[ERROR] Got error when called 'Greet' RPC: %v", err)
+	}
+
+	log.Printf("Response from greet: %v",res.Result )	
 }
