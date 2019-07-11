@@ -1,7 +1,6 @@
 package main
 
 import ( 
-	// "fmt
 	"log"
 	"net"
 
@@ -24,7 +23,7 @@ func main() {
 	s := grpc.NewServer()
 	// Create an instance of `server` and 
 	// pass it as 2nd arg of RegisterGreetServiceServer -> Why ?
-	greetpb.RegisterGreetServiceServer(s, &server{});  
+	greetpb.RegisterGreetServiceServer(s, &server{});
 
 	if err := s.Serve(listener); err != nil {
 		log.Fatalf("[ERROR] Failed to serve: %v", err)
