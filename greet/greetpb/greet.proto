@@ -4,6 +4,20 @@ package greet;
 
 option go_package="greetpb";
 
-service GreetService {
-  // TODO: Define methods contract at here
+message Greeting {
+  string first_name = 1;
+  string last_name = 2;
+}
+
+message GreetRequest {
+  Greeting greeting = 1;
+}
+
+message GreetResponse {
+  string result = 1;
+}
+
+// Define methods contract at here
+service GreetService {  
+  rpc Greet(GreetRequest) returns (GreetResponse) {};
 }
