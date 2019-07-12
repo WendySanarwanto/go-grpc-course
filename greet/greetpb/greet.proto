@@ -20,6 +20,7 @@ message GreetResponse {
 message GreetManyTimesRequest {
   Greeting  greeting = 1;
   int32 numGreetings = 2;
+  int32 readStreamedChunkDelay = 3;
 }
 
 message GreetManyTimesResponse {

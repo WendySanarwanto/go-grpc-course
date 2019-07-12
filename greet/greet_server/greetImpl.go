@@ -28,6 +28,7 @@ func (*server) GreetManyTimes(req *greetpb.GreetManyTimesRequest, stream greetpb
 	firstName := req.GetGreeting().GetFirstName()
 	lastName := req.GetGreeting().GetLastName()
 	numGretings := int(req.GetNumGreetings())
+	readStreamedChunkDelay := time.Duration(req.GetReadStreamedChunkDelay())
 
 	for i:=1; i<=numGretings; i++ {
 		result := "Hello, "+firstName+" "+lastName+". Number: "+ strconv.Itoa(i)
@@ -35,7 +36,7 @@ func (*server) GreetManyTimes(req *greetpb.GreetManyTimesRequest, stream greetpb
 			Result: result,
 		}
 		stream.Send(res)
-		time.Sleep(200 * time.Millisecond)
+		time.Sleep(readStreamedChunkDelay * time.Millisecond)
 	}
 	return nil
 }
